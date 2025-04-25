@@ -26,7 +26,6 @@ public class Metronome: MonoBehaviour
     }
     void Click()
     {
-       // Debug.Log("Klik!");
         if (audioSource != null)
         {
             audioSource.Play();

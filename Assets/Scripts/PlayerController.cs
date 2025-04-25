@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private int jumpCount=0;
     private float floatTimer=0;
-    private bool isFloating;
 
     void Start()
     {
@@ -35,7 +34,6 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             jumpCount = 0;
-            isFloating = true;
             floatTimer = maxFloatTime;
         }
 
