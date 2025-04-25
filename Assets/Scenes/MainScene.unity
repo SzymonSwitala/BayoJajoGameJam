@@ -688,7 +688,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpForce: 5
+  jumpForce: 10
+  maxJumps: 2
+  maxFloatTime: 2
+  floatGravityMultiplier: 0.3
   isGrounded: 0
   groundCheck: {fileID: 1158803449}
   groundCheckRadius: 0.2
