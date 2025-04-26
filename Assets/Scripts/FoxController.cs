@@ -1,67 +1,129 @@
 using UnityEngine;
 
 [System.Serializable]
-public class PosesCollection
-{
-    public string name;
-    public int minTick;
-    public int maxTick;
-    public GameObject[] poses;
-}
+
 public class FoxController : MonoBehaviour
 {
     [SerializeField] private Metronome metronome;
-    [SerializeField] PosesCollection[] posesCollection;
 
-    public int tickCounter;
-    public int tickToNextPose;
-   public int currentPosesCollectionIndex;
-    private void Start()
+    enum poseState
     {
-        HideAllPose();
-        metronome.OnTick.AddListener(Tick);
-        RandomTickCountNumber();
+        idle,
+        prepare,
+        attack
     }
 
- 
+    [SerializeField] private GameObject[] idlePoses;
+    [SerializeField] private int minIdleTickCount, maxIdleTickCount;
+    [SerializeField] private int randomIdleTickCount;
+
+    [SerializeField] private GameObject[] preparePoses,attackPoses;
+    [SerializeField] private int minPrepareTickCount, maxPrepareTickCount;
+    [SerializeField] private int randomPrepareTickCount;
+    [SerializeField] int tickToAttack;
+
+    private int currentPreparePoseIndex;
+
+    [SerializeField] private poseState currentPoseState;
+    public int tickCounter;
+
+    private void Start()
+    {
+        metronome.OnTick.AddListener(Tick);
+        HideAllPoses();
+        RandomIdlePose();
+        ChangeState(currentPoseState);
+        randomIdleTickCount = Random.Range(minIdleTickCount, maxIdleTickCount); // random Idle Tick
+    }
 
     void Tick()
     {
-        
         tickCounter++;
 
-        if (tickCounter>=tickToNextPose)
+        if (currentPoseState == poseState.idle && tickCounter >= randomIdleTickCount)
         {
-            if (currentPosesCollectionIndex < posesCollection.Length-1) currentPosesCollectionIndex++;
-            else currentPosesCollectionIndex = 0;
             tickCounter = 0;
+            randomPrepareTickCount = Random.Range(minPrepareTickCount, maxPrepareTickCount); // random Prepare Tick
+            currentPoseState = poseState.prepare;
+            
+            HideAllPoses();
+            RandomPreparePose();
 
-            HideAllPose();
-            int randomPoseIndex = Random.Range(0, posesCollection[currentPosesCollectionIndex].poses.Length-1);
-            ShowPose(posesCollection[currentPosesCollectionIndex], randomPoseIndex);
 
-            RandomTickCountNumber();
+
         }
-
-    }
-
-    public void HideAllPose()
-    {
-        Debug.Log("Hide");
-        for (int i=0;i<posesCollection.Length;i++)
+        else if (currentPoseState == poseState.prepare && tickCounter >= tickToAttack)
         {
-            for (int j = 0; j <posesCollection[i].poses.Length; j++)
-            {
-                posesCollection[i].poses[j].SetActive(false);
-            }
+            tickCounter = 0;
+            currentPoseState = poseState.attack;
+            HideAllPoses();
+            attackPoses[currentPreparePoseIndex].SetActive(true);
+
+        
+        }
+        else if (currentPoseState == poseState.attack && tickCounter >= randomPrepareTickCount)
+        {
+            tickCounter = 0;
+            randomIdleTickCount = Random.Range(minIdleTickCount, maxIdleTickCount); // random Idle Tick
+            currentPoseState = poseState.idle;
+
+            HideAllPoses();
+            RandomIdlePose();
         }
     }
-    public void ShowPose(PosesCollection posesCollection,int poseIndex)
+
+    void HideAllPoses()
     {
-        posesCollection.poses[poseIndex].SetActive(true);
+        foreach (GameObject go in idlePoses)
+        {
+            go.SetActive(false);
+        }
+        foreach (GameObject go in preparePoses)
+        {
+            go.SetActive(false);
+        }
+        foreach (GameObject go in attackPoses)
+        {
+            go.SetActive(false);
+        }
     }
-    private void RandomTickCountNumber()
+
+    void RandomIdlePose()
     {
-      tickToNextPose = Random.Range(posesCollection[currentPosesCollectionIndex].minTick, posesCollection[currentPosesCollectionIndex].maxTick);
+
+        int randomIndex = Random.Range(0, idlePoses.Length);
+        idlePoses[randomIndex].SetActive(true);
+
+    }
+    void RandomPreparePose()
+    {
+
+        currentPreparePoseIndex = Random.Range(0, preparePoses.Length);
+        preparePoses[currentPreparePoseIndex].SetActive(true);
+
+    }
+
+    void ChangeState(poseState poseState)
+    {
+        switch (poseState)
+        {
+            case poseState.idle:
+
+
+                break;
+
+            case poseState.prepare:
+
+
+                break;
+
+            case poseState.attack:
+
+
+                break;
+
+
+        }
+
     }
 }
