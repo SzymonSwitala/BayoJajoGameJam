@@ -1,44 +1,70 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 public class Metronome : MonoBehaviour
 {
-    [SerializeField] private float bpm = 60f;
-    private AudioSource audioSource;
-    public bool isStarted = false;
 
-    private float nextClickTime;
+    AudioSource audioSource;
+
+    public float bpm = 120f;          
+    public float multiplier = 1f;     
+
+    private float nextTickTime;
     private float interval;
 
     public UnityEvent OnTick;
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    public bool isStarted;
     void Start()
     {
-        interval = 60f / bpm;
-        nextClickTime = Time.time;
+        audioSource = GetComponent<AudioSource>();
+        UpdateInterval();
+        nextTickTime = Time.time + interval;
     }
+
     void Update()
     {
         if (!isStarted) return;
-        
 
-            if (Time.time >= nextClickTime)
-            {
-                Tick();
-                nextClickTime += interval;
-            }
-        
+        if (Time.time >= nextTickTime)
+        {
+            Tick();
+            UpdateInterval();
+            nextTickTime += interval;
+        }
     }
+
+    void UpdateInterval()
+    {
+        float adjustedBpm = bpm;
+
+        if (multiplier >= 1f)
+        {
+            adjustedBpm *= multiplier;
+        }
+        else if (multiplier > 0f)
+        {
+            adjustedBpm *= multiplier;
+        }
+        else
+        {
+            multiplier = 0.01f; 
+            adjustedBpm *= multiplier;
+        }
+
+        interval = 60f / adjustedBpm;
+    }
+
     void Tick()
     {
+        audioSource.Play();
         OnTick.Invoke();
+    }
 
-        if (audioSource != null)
-        {
-            audioSource.Play();
-        }
+    public void SetBpmAndMultiplier(float newBpm, float newMultiplier)
+    {
+        bpm = Mathf.Max(newBpm, 1f);
+        multiplier = Mathf.Max(newMultiplier, 0.01f);
+        UpdateInterval();
     }
 }
