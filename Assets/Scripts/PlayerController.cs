@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     
     private Rigidbody rb;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform playerModel;
+    bool isFloating;
+
     private int jumpCount=0;
     private float floatTimer=0;
 
@@ -23,13 +27,34 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         //movement
         float moveInput = Input.GetAxis("Horizontal");
         Vector3 velocity = rb.linearVelocity;
         velocity.x = moveInput * moveSpeed;
         rb.linearVelocity = velocity;
 
-       isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        
+        if (moveInput>0.1f)
+        {
+            
+            Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 720f * Time.deltaTime);
+        }
+        else if(moveInput<-0.1f)
+        {
+           
+            Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 720f * Time.deltaTime);
+        }
+
+
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+        animator.SetBool("isFloating", isFloating);
+
+
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
 
         if (isGrounded)
         {
@@ -46,11 +71,15 @@ public class PlayerController : MonoBehaviour
        
         if (!isGrounded && Input.GetKey(KeyCode.Space) && floatTimer > 0f)
         {
-            Debug.Log("Floating");
-            Vector3 floatVelocity = rb.linearVelocity;
+            isFloating = true;
+              Vector3 floatVelocity = rb.linearVelocity;
             floatVelocity.y *= floatGravityMultiplier;
             rb.linearVelocity = floatVelocity;
             floatTimer -= Time.deltaTime;
+        }
+        else
+        {
+            isFloating = false;
         }
     }
 }
