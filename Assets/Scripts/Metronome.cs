@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class Metronome: MonoBehaviour
+public class Metronome : MonoBehaviour
 {
     [SerializeField] private float bpm = 60f;
     private AudioSource audioSource;
-   
+    public bool isStarted = false;
+
     private float nextClickTime;
     private float interval;
     private void Awake()
@@ -18,11 +19,15 @@ public class Metronome: MonoBehaviour
     }
     void Update()
     {
-        if (Time.time >= nextClickTime)
-        {
-            Click();
-            nextClickTime += interval;
-        }
+        if (!isStarted) return;
+        
+
+            if (Time.time >= nextClickTime)
+            {
+                Click();
+                nextClickTime += interval;
+            }
+        
     }
     void Click()
     {

@@ -14,12 +14,15 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody rb;
     [SerializeField] private Animator animator;
-    [SerializeField] private Transform playerModel;
+    [SerializeField] private GameObject playerModel;
+    [SerializeField] private GameObject deadModel;
     bool isFloating;
-
+   
     private int jumpCount=0;
     private float floatTimer=0;
 
+
+    public bool canMove = true;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -27,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        if (!canMove) return;
         //movement
         float moveInput = Input.GetAxis("Horizontal");
         Vector3 velocity = rb.linearVelocity;
@@ -81,5 +84,13 @@ public class PlayerController : MonoBehaviour
         {
             isFloating = false;
         }
+    }
+
+    public void Dead()
+    {
+        canMove = false;
+        playerModel.SetActive(false);
+        deadModel.SetActive(true);
+        GameManager.Instance.GameOver();
     }
 }
