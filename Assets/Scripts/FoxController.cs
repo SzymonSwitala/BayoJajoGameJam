@@ -1,73 +1,67 @@
 using UnityEngine;
 
+[System.Serializable]
+public class PosesCollection
+{
+    public string name;
+    public int minTick;
+    public int maxTick;
+    public GameObject[] poses;
+}
 public class FoxController : MonoBehaviour
 {
- 
-    private enum State
-    {
-        Idle,
-        Prepare,
-        Attack
-    }
-
-    [SerializeField] private State currentState;
-    [SerializeField] private Animator animator;
     [SerializeField] private Metronome metronome;
-    [SerializeField] private int tickToNextState=3;
-    [SerializeField] private int numberOfIdleAnim, numberOfPrepareAnim, numberOfAttackAnim;
-    [SerializeField] private AnimationClip[] idleAnim, prepareAnim, attackAnim;
-    int tickCounter;
+    [SerializeField] PosesCollection[] posesCollection;
+
+    public int tickCounter;
+    public int tickToNextPose;
+   public int currentPosesCollectionIndex;
     private void Start()
     {
- 
+        HideAllPose();
         metronome.OnTick.AddListener(Tick);
+        RandomTickCountNumber();
     }
+
+ 
 
     void Tick()
     {
-        Debug.Log("Tick");
+        
         tickCounter++;
-        if (tickCounter>=tickToNextState)
+
+        if (tickCounter>=tickToNextPose)
         {
-            ChangeToNextState();
+            if (currentPosesCollectionIndex < posesCollection.Length-1) currentPosesCollectionIndex++;
+            else currentPosesCollectionIndex = 0;
             tickCounter = 0;
+
+            HideAllPose();
+            int randomPoseIndex = Random.Range(0, posesCollection[currentPosesCollectionIndex].poses.Length-1);
+            ShowPose(posesCollection[currentPosesCollectionIndex], randomPoseIndex);
+
+            RandomTickCountNumber();
         }
+
     }
-    void ChangeToNextState()
+
+    public void HideAllPose()
     {
-
-
-        switch (currentState)
+        Debug.Log("Hide");
+        for (int i=0;i<posesCollection.Length;i++)
         {
-            case State.Idle:
-
-                animator.SetInteger("currentAnim", 1);
-                PlayRandomAnim("IdleIndex",5);
-                Debug.Log("Idle");
-                currentState = State.Prepare;
-                break;
-
-            case State.Prepare:
-
-                animator.SetInteger("currentAnim", 2);
-                PlayRandomAnim("PrepareIndex", 5);
-                Debug.Log("Prepare");
-                currentState = State.Attack;
-                break;
-
-            case State.Attack:
-                animator.SetInteger("currentAnim", 0);
-                PlayRandomAnim("AttackIndex", 10);
-                Debug.Log("Attack");
-                currentState = State.Idle;
-                break;
-
+            for (int j = 0; j <posesCollection[i].poses.Length; j++)
+            {
+                posesCollection[i].poses[j].SetActive(false);
+            }
         }
     }
-    void PlayRandomAnim(string name,int clipCount)
+    public void ShowPose(PosesCollection posesCollection,int poseIndex)
     {
-        int randomIndex = Random.RandomRange(0,clipCount-1);
-        animator.SetFloat(name, randomIndex);
-
+        posesCollection.poses[poseIndex].SetActive(true);
+    }
+    private void RandomTickCountNumber()
+    {
+      tickToNextPose = Random.Range(posesCollection[currentPosesCollectionIndex].minTick, posesCollection[currentPosesCollectionIndex].maxTick);
     }
 }
