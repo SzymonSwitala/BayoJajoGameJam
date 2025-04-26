@@ -1083,7 +1083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 0
-  isStarted: 0
+  timerText: {fileID: 0}
 --- !u!4 &1095775379
 Transform:
   m_ObjectHideFlags: 0
@@ -1436,7 +1436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bpm: 60
-  isStarted: 0
 --- !u!82 &1790757898
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1620,11 +1619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f063be96dcea78847b9651afcd896812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  metronome: {fileID: 0}
-  gameTimer: {fileID: 0}
-  interfaceScreen: {fileID: 0}
-  gameOverScreen: {fileID: 0}
-  gameOverTimerText: {fileID: 0}
 --- !u!4 &2104615845
 Transform:
   m_ObjectHideFlags: 0
