@@ -4,7 +4,6 @@ using UnityEngine;
 public class GameTimer : MonoBehaviour
 {
     public float time = 0f;
-    [SerializeField] private TextMeshProUGUI timerText;
     public bool isStarted = false;
 
     private void Update()
@@ -15,7 +14,7 @@ public class GameTimer : MonoBehaviour
     void UpdateTimer()
     {
         time += Time.deltaTime;
-        timerText.text = GetTime();
+      
     }
 
     public string GetTime()

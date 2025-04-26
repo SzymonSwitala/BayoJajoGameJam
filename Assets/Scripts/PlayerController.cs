@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject deadModel;
     bool isFloating;
+    
    
     private int jumpCount=0;
     private float floatTimer=0;
@@ -91,6 +92,6 @@ public class PlayerController : MonoBehaviour
         canMove = false;
         playerModel.SetActive(false);
         deadModel.SetActive(true);
-        GameManager.Instance.GameOver();
+   
     }
 }

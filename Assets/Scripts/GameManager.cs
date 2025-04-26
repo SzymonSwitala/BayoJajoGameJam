@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         interfaceScreen.SetActive(false);
         gameOverScreen.SetActive(true);
-
         metronome.isStarted = false;
         gameTimer.isStarted = false;
 
