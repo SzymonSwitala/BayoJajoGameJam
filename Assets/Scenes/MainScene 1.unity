@@ -546,6 +546,7 @@ Transform:
   - {fileID: 1095775379}
   - {fileID: 881466274}
   - {fileID: 1935074209}
+  - {fileID: 1438098745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
@@ -1035,6 +1036,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8fc3cc62af3d9049b7f071ac992b0e6, type: 3}
+--- !u!1 &1438098744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1438098745}
+  - component: {fileID: 1438098746}
+  m_Layer: 0
+  m_Name: BeatTempoManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1438098745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438098744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 812655612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1438098746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438098744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3266dbd1baf85274eb341d970f53cf32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metronome: {fileID: 1790757897}
+  musicManager: {fileID: 1935074211}
+  speedIncrease: 0.1
+  multipler: 1
+  increaseSpeedAfterSec: 20
 --- !u!1 &1759213294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,11 +1352,11 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935074208}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9e3d2198bcec04049bc6ad005f7844cd, type: 3}
-  m_Resource: {fileID: 8300000, guid: 9e3d2198bcec04049bc6ad005f7844cd, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1404,6 +1454,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc989000623283a49bdd1d0f4862ba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music:
+  - {fileID: 8300000, guid: 9e3d2198bcec04049bc6ad005f7844cd, type: 3}
+  - {fileID: 8300000, guid: c51ca4f821d6a7b41b0f6edf2f53ee2f, type: 3}
+  - {fileID: 8300000, guid: 750ca734c7ebbd041b526ac734d406d6, type: 3}
+  - {fileID: 8300000, guid: 6bc2a917b77d5934f99312c243d6cf22, type: 3}
+  isPlaying: 0
 --- !u!114 &1983114542 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1330384991340824510, guid: 50747e7c7f6f82440b76c3ddb63caaa8, type: 3}
@@ -1550,11 +1606,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f063be96dcea78847b9651afcd896812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  metronome: {fileID: 1790757897}
   gameTimer: {fileID: 1095775378}
   interfaceScreen: {fileID: 1346722599}
   gameOverScreen: {fileID: 47847212}
   gameOverTimerText: {fileID: 710801552}
+  beatTempoManager: {fileID: 1438098746}
 --- !u!4 &2104615845
 Transform:
   m_ObjectHideFlags: 0

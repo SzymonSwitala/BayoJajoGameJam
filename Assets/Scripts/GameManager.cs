@@ -6,12 +6,12 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private Metronome metronome;
+  
     [SerializeField] private GameTimer gameTimer;
     [SerializeField] private GameObject interfaceScreen;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private TextMeshProUGUI gameOverTimerText;
-    
+    [SerializeField] private BeatTempoManager beatTempoManager;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         interfaceScreen.SetActive(true);
-        metronome.isStarted = true;
+        beatTempoManager.StartBeat();
         gameTimer.isStarted = true;
    
     }
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         interfaceScreen.SetActive(false);
         gameOverScreen.SetActive(true);
-        metronome.isStarted = false;
+        beatTempoManager.StopBeat();
         gameTimer.isStarted = false;
 
         gameOverTimerText.text = "Przeżyłeś " + gameTimer.GetTime();

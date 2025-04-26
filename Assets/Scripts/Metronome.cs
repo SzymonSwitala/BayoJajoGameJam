@@ -6,13 +6,12 @@ public class Metronome : MonoBehaviour
 {
 
     AudioSource audioSource;
+    
 
     public float bpm = 120f;          
     public float multiplier = 1f;     
-
     private float nextTickTime;
     private float interval;
-
     public UnityEvent OnTick;
     public bool isStarted;
     void Start()
@@ -20,6 +19,8 @@ public class Metronome : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         UpdateInterval();
         nextTickTime = Time.time + interval;
+
+     
     }
 
     void Update()
@@ -61,9 +62,9 @@ public class Metronome : MonoBehaviour
         OnTick.Invoke();
     }
 
-    public void SetBpmAndMultiplier(float newBpm, float newMultiplier)
+    public void SetMultiplier(float newMultiplier)
     {
-        bpm = Mathf.Max(newBpm, 1f);
+        
         multiplier = Mathf.Max(newMultiplier, 0.01f);
         UpdateInterval();
     }

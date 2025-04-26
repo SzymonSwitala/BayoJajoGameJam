@@ -5,6 +5,8 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Instance { get; private set; }
 
     private AudioSource audioSource;
+    [SerializeField] private AudioClip[] music;
+    public bool isPlaying;
 
     private void Awake()
     {
@@ -17,24 +19,28 @@ public class MusicManager : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
     }
-
-    private void Start()
+    private void Update()
     {
-        audioSource.Play();
-        ChangeSpeed(1.2f);
+        if (isPlaying && !audioSource.isPlaying)
+        {
+            int randomIndex = Random.Range(0,music.Length);
+            audioSource.clip = music[randomIndex];
+            audioSource.Play();
+        }
     }
-    public void PlayMusic(AudioClip clip)
+    public void PlayMusic()
     {
-        audioSource.clip = clip;
-        audioSource.Play();
+        isPlaying = true;
+       
     }
 
     public void StopMusic()
     {
+        isPlaying = false;
         audioSource.Stop();
     }
 
-    void ChangeSpeed(float speedMultipler)
+   public void ChangeSpeed(float speedMultipler)
     {
         audioSource.pitch = speedMultipler;
     }
