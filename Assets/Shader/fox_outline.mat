@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineMat
+  m_Name: fox_outline
   m_Shader: {fileID: -6465566751694194690, guid: 6adf11cda78cd3c43899446cbefc3bb2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,8 +38,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Fade_Distance: 75
-    - _Outline_Thickness: 0.0171
+    - _Fade_Distance: 500
+    - _Outline_Thickness: 0.05
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
