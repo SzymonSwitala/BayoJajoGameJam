@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Metronome : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Metronome : MonoBehaviour
 
     private float nextClickTime;
     private float interval;
+
+    public UnityEvent OnTick;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -24,13 +27,15 @@ public class Metronome : MonoBehaviour
 
             if (Time.time >= nextClickTime)
             {
-                Click();
+                Tick();
                 nextClickTime += interval;
             }
         
     }
-    void Click()
+    void Tick()
     {
+        OnTick.Invoke();
+
         if (audioSource != null)
         {
             audioSource.Play();
