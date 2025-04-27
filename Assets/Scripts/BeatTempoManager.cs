@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 public class BeatTempoManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class BeatTempoManager : MonoBehaviour
     [SerializeField] private float speedIncrease = 0.1f;
     [SerializeField] private float multipler = 1;
     [SerializeField] private float increaseSpeedAfterSec;
+    public UnityEvent OnIncreseSpeed;
 
     private float timer = 0f;
 
@@ -20,7 +22,7 @@ public class BeatTempoManager : MonoBehaviour
         if (timer >= increaseSpeedAfterSec)
         {
             timer = 0f;
-            InvreaseSpeed();
+            IncreaseSpeed();
         }
     }
     public void StartBeat()
@@ -35,10 +37,10 @@ public class BeatTempoManager : MonoBehaviour
         musicManager.StopMusic();
     }
 
-    void InvreaseSpeed()
+    void IncreaseSpeed()
     {
         multipler += speedIncrease;
-        
+        OnIncreseSpeed.Invoke();
         musicManager.ChangeSpeed(multipler);
         metronome.SetMultiplier(multipler);
     }

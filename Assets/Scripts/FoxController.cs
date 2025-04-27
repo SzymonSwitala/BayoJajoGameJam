@@ -22,6 +22,9 @@ public class FoxController : MonoBehaviour
     [SerializeField] private int randomPrepareTickCount;
     [SerializeField] int tickToAttack;
 
+    [SerializeField] private AudioClip prepareSound, attackSound;
+    [SerializeField] private int prepareSoundVolume, attackSoundVolume;
+
     private int currentPreparePoseIndex;
 
     [SerializeField] private poseState currentPoseState;
@@ -45,7 +48,8 @@ public class FoxController : MonoBehaviour
             tickCounter = 0;
             randomPrepareTickCount = Random.Range(minPrepareTickCount, maxPrepareTickCount); // random Prepare Tick
             currentPoseState = poseState.prepare;
-            
+            AudioManager.Instance.PlayOneShot(prepareSound, prepareSoundVolume);
+
             HideAllPoses();
             RandomPreparePose();
 
@@ -56,6 +60,8 @@ public class FoxController : MonoBehaviour
         {
             tickCounter = 0;
             currentPoseState = poseState.attack;
+            AudioManager.Instance.PlayOneShot(attackSound, attackSoundVolume);
+
             HideAllPoses();
             attackPoses[currentPreparePoseIndex].SetActive(true);
 

@@ -7,6 +7,8 @@ public class HealthPoints : MonoBehaviour
     [SerializeField] private PlayerController player;
     [SerializeField] private HUDController hUD;
     int currentHP;
+    [SerializeField] private AudioClip damageSound;
+    [SerializeField] private int damageSoundVolume;
     private void Start()
     {
         currentHP = maxHP;
@@ -15,6 +17,7 @@ public class HealthPoints : MonoBehaviour
     public void TakeDamage()
     {
         currentHP--;
+        AudioManager.Instance.PlayOneShot(damageSound, damageSoundVolume);
         hUD.UpdateHP(currentHP);
         if (currentHP <= 0)
         {
