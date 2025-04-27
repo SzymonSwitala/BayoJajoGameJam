@@ -38,6 +38,6 @@ public class GameManager : MonoBehaviour
         beatTempoManager.StopBeat();
         gameTimer.isStarted = false;
 
-        gameOverTimerText.text = "Przeżyłeś " + gameTimer.GetTime();
+        gameOverTimerText.text = "Score : " + gameTimer.GetTime();
     }
 }
