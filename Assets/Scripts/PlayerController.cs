@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
    
     private int jumpCount=0;
     private float floatTimer=0;
-
+    bool isDead = false;
 
     public bool canMove = true;
     void Start()
@@ -107,6 +107,9 @@ public class PlayerController : MonoBehaviour
 
     public void Dead()
     {
+        if (isDead) return;
+        Debug.Log("Jajecznica");
+        isDead = true;
         AudioManager.Instance.PlayOneShot(deadSound,deadSoundVolume);
         canMove = false;
         playerModel.SetActive(false);
