@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject deadModel;
     bool isFloating;
-    
+    public float gravityModifier = 1;
    
     private int jumpCount=0;
     private float floatTimer=0;
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+       
     }
 
     void Update()
@@ -38,6 +39,10 @@ public class PlayerController : MonoBehaviour
         velocity.x = moveInput * moveSpeed;
         rb.linearVelocity = velocity;
 
+        if (rb.linearVelocity.y<0)
+        {
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (gravityModifier - 1) * Time.deltaTime;
+        }
         
         if (moveInput>0.1f)
         {
@@ -68,8 +73,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && jumpCount < maxJumps-1)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-           jumpCount++;
+            //     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, 0);
+            
+            jumpCount++;
            
         }
        
