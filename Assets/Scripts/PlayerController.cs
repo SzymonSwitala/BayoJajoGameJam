@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject deadModel;
     bool isFloating;
-    public float gravityModifier = 1;
+    public float fallMultipler = 3;
+    public float lowJumpMultipler = 2;
    
     private int jumpCount=0;
     private float floatTimer=0;
@@ -37,22 +38,19 @@ public class PlayerController : MonoBehaviour
         float moveInput = Input.GetAxis("Horizontal");
         Vector3 velocity = rb.linearVelocity;
         velocity.x = moveInput * moveSpeed;
-        rb.linearVelocity = velocity;
+        rb.linearVelocity = new Vector3(velocity.x,rb.linearVelocity.y,0);
 
-        if (rb.linearVelocity.y<0)
+      
+
+        if (moveInput > 0.1f)
         {
-            rb.linearVelocity += Vector3.up * Physics.gravity.y * (gravityModifier - 1) * Time.deltaTime;
-        }
-        
-        if (moveInput>0.1f)
-        {
-            
+
             Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 720f * Time.deltaTime);
         }
-        else if(moveInput<-0.1f)
+        else if (moveInput < -0.1f)
         {
-           
+
             Quaternion targetRotation = Quaternion.Euler(0, 180, 0);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 720f * Time.deltaTime);
         }
@@ -92,6 +90,16 @@ public class PlayerController : MonoBehaviour
         {
             isFloating = false;
         }
+
+        if (rb.linearVelocity.y < 0)
+        {
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (fallMultipler - 1) * Time.deltaTime;
+        }
+        else if (rb.linearVelocity.y > 0 && !Input.GetKey(KeyCode.W))
+        {
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (lowJumpMultipler - 1) * Time.deltaTime;
+        }
+
     }
 
     public void Dead()
