@@ -7554,16 +7554,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6095376839835277569, guid: b500799d4d79e1a40b7d24c385116971, type: 3}
       propertyPath: prepareSound.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6095376839835277569, guid: b500799d4d79e1a40b7d24c385116971, type: 3}
       propertyPath: 'prepareSound.Array.data[0]'
       value: 
-      objectReference: {fileID: 8300000, guid: 22f2386cbbc2c4049ad7348a28b0b4a6, type: 3}
+      objectReference: {fileID: 8300000, guid: 267b92a4ca6dc5c44ac493651f41cd98, type: 3}
     - target: {fileID: 6095376839835277569, guid: b500799d4d79e1a40b7d24c385116971, type: 3}
       propertyPath: 'prepareSound.Array.data[1]'
       value: 
-      objectReference: {fileID: 8300000, guid: 39f82b1ea45c0ca43bda2169d8cfcf53, type: 3}
+      objectReference: {fileID: 8300000, guid: 82fd286810a3214458f01e9fc9c51b00, type: 3}
+    - target: {fileID: 6095376839835277569, guid: b500799d4d79e1a40b7d24c385116971, type: 3}
+      propertyPath: 'prepareSound.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b2964864e120c96458c9053ca20a90a6, type: 3}
+    - target: {fileID: 6095376839835277569, guid: b500799d4d79e1a40b7d24c385116971, type: 3}
+      propertyPath: 'prepareSound.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f41c12bb9559294284eff5d92980234, type: 3}
     - target: {fileID: 7490967501578157021, guid: b500799d4d79e1a40b7d24c385116971, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000023841858
