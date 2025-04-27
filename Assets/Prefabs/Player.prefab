@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 5052760528791539140}
   - component: {fileID: 584928328314520845}
   - component: {fileID: 1330384991340824510}
+  - component: {fileID: 7298869377276924476}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +76,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9062758281962755321}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d4e98ec110bce0b4fa0034ac0d99a1e7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -99,7 +100,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9062758281962755321}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -130,10 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c55ffdae2ac3f4f847bef5b90b3d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 6
+  moveSpeed: 10
+  jumpForce: 28
   maxJumps: 2
-  maxFloatTime: 2
+  maxFloatTime: 1.5
   floatGravityMultiplier: 0.3
   isGrounded: 1
   groundCheck: {fileID: 2480801197006171151}
@@ -145,6 +146,21 @@ MonoBehaviour:
   playerModel: {fileID: 3341703825402360474}
   deadModel: {fileID: 1522952910796930120}
   canMove: 1
+--- !u!114 &7298869377276924476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9062758281962755321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ff410d0122f2442bc900cf9da78887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 3
+  player: {fileID: 1330384991340824510}
+  hUD: {fileID: 0}
 --- !u!1001 &1865603276267815193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -292,6 +308,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: The_Egg_mesh_rig_001
       objectReference: {fileID: 0}
+    - target: {fileID: 4423062031962700467, guid: 60f2a63bc87bc0946898fc543c121007, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423062031962700467, guid: 60f2a63bc87bc0946898fc543c121007, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2a041919f5176284aa7f1e889a563404, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
