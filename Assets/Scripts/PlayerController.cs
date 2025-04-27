@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject deadModel;
+
+    [SerializeField] AudioClip deadSound,jumpSound;
+    [SerializeField] private int deadSoundVolume=100,jumpSoundVolume=100;
     bool isFloating;
     public float fallMultipler = 3;
     public float lowJumpMultipler = 2;
@@ -73,7 +76,7 @@ public class PlayerController : MonoBehaviour
         {
             //     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, 0);
-            
+            AudioManager.Instance.PlayOneShot(jumpSound, jumpSoundVolume);
             jumpCount++;
            
         }
@@ -104,6 +107,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dead()
     {
+        AudioManager.Instance.PlayOneShot(deadSound,deadSoundVolume);
         canMove = false;
         playerModel.SetActive(false);
         deadModel.SetActive(true);
